@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Secure Login</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #141e30, #243b55);
+        }
+
+        .login-box {
+            width: 350px;
+            padding: 35px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .login-box h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #222;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 7px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+            font-size: 15px;
+        }
+
+        .input-group input:focus {
+            border-color: #243b55;
+        }
+
+        .password-box {
+            position: relative;
+        }
+
+        .password-box input {
+            padding-right: 45px;
+        }
+
+        .show-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            user-select: none;
+        }
+
+        .forgot {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        .forgot a {
+            color: #243b55;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .forgot a:hover {
+            text-decoration: underline;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #243b55;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            background: #141e30;
+        }
+
+        #message {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-box">
+
+        <h2>Secure Login</h2>
+
+        <form id="loginForm">
+
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Enter username"
+                    autocomplete="username"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+
+                <div class="password-box">
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                    <span
+                        class="show-password"
+                        id="showPassword"
+                        title="Show password"
+                    >👁️</span>
+                </div>
+            </div>
+
+            <div class="forgot">
+                <a href="#" id="forgotPassword">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="login-btn">
+                Login
+            </button>
+
+            <p id="message"></p>
+
+        </form>
+
+    </div>
+
+    <script>
+        const passwordInput = document.getElementById("password");
+        const showPassword = document.getElementById("showPassword");
+        const loginForm = document.getElementById("loginForm");
+        const message = document.getElementById("message");
+        const forgotPassword = document.getElementById("forgotPassword");
+
+        // Show / Hide Password
+        showPassword.addEventListener("click", function () {
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                showPassword.textContent = "🙈";
+            } else {
+                passwordInput.type = "password";
+                showPassword.textContent = "👁️";
+            }
+
+        });
+
+        // Login button
+        loginForm.addEventListener("submit", function (event) {
+
+            event.preventDefault();
+
+            const username = document.getElementById("username").value.trim();
+            const password = passwordInput.value;
+
+            if (username === "" || password === "") {
+                message.textContent = "Please enter username and password.";
+                message.style.color = "red";
+                return;
+            }
+
+            /*
+                IMPORTANT:
+                This is only the frontend UI.
+
+                Do NOT put real passwords here.
+                For a secure login, we will connect this
+                form to a backend/database in the next step.
+            */
+
+            message.textContent = "Login form is working!";
+            message.style.color = "green";
+        });
+
+        // Forgot password
+        forgotPassword.addEventListener("click", function (event) {
+
+            event.preventDefault();
+
+            alert("Password recovery will be connected to the backend.");
+        });
+    </script>
+
+</body>
+</html>
